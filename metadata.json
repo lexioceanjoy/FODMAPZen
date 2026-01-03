@@ -1,0 +1,7 @@
+{
+  "name": "FODMAP Zen",
+  "description": "A comprehensive Low FODMAP companion featuring East Asian cuisine analysis and NYC restaurant finder.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
