@@ -1,3 +1,4 @@
+
 import { GoogleGenAI, Type } from "@google/genai";
 import { AnalysisResult, RestaurantRecommendation, Recipe, ScanResult, FodmapStatus } from "../types";
 import { PDF_FOOD_DATABASE } from "../constants";
@@ -267,7 +268,8 @@ export const findFriendlyRestaurants = async (
     For EACH restaurant found via Google Maps, provide:
     1. Name and Address.
     2. Short description.
-    3. Two specific dish recommendations that appear typically safe (e.g. "Steamed Fish with Ginger", "Sashimi with plain rice").
+    3. Two dish recommendations that are "Most Likely Low FODMAP Safe" (but may require modification).
+    4. For EACH dish, provide a "caution" note specifying exactly what the user must verify with the server (e.g. "Ask for gluten-free soy sauce", "Ensure no garlic garnish", "Ask for sauce on side").
     
     Output the result as a STRICT valid JSON array with this exact schema:
     [
@@ -275,7 +277,9 @@ export const findFriendlyRestaurants = async (
         "name": "Restaurant Name",
         "address": "Full Address",
         "description": "Short description",
-        "recommendedDishes": ["Dish Name 1", "Dish Name 2"]
+        "recommendedDishes": [
+            { "name": "Dish Name", "caution": "Ask server to..." }
+        ]
       }
     ]
     Do not add conversational text.
@@ -324,11 +328,16 @@ export const findFriendlyRestaurants = async (
         c.web?.title?.includes(place.name) || c.web?.uri?.includes(place.name.replace(/\s+/g, '+'))
       );
 
-      // Handle potential key variations from the model
-      const dishList = place.recommendedDishes || 
+      // Handle potential key variations from the model or string fallbacks
+      let dishList = place.recommendedDishes || 
                        place.suggested_fodmap_dishes || 
                        place.suggested_dishes || 
                        [];
+      
+      // If model returned strings by mistake, map them to objects
+      if (Array.isArray(dishList) && typeof dishList[0] === 'string') {
+          dishList = dishList.map((d: string) => ({ name: d, caution: "Verify ingredients with server." }));
+      }
       
       return {
         ...place,

@@ -1,3 +1,4 @@
+
 export enum FodmapStatus {
   LOW = 'LOW',
   HIGH = 'HIGH',
@@ -22,13 +23,18 @@ export interface AnalysisResult {
   modifications: string[];
 }
 
+export interface DishRecommendation {
+  name: string;
+  caution: string; // Specific advice for the user (e.g. "Ask for GF soy sauce")
+}
+
 export interface RestaurantRecommendation {
   name: string;
   address: string;
   rating?: string;
   description?: string;
   googleMapsUri?: string;
-  recommendedDishes: string[];
+  recommendedDishes: DishRecommendation[];
 }
 
 export interface Recipe {

@@ -82,8 +82,11 @@ const RestaurantFinder: React.FC = () => {
       <div className="text-center mb-10">
         <h2 className="text-3xl font-bold tracking-tight text-sage-900 font-serif">NYC Asian Dining Guide</h2>
         <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-          Find highly-rated restaurants near you with safe Low FODMAP options. 
-          We verify menus against dietary needs in real-time.
+          Find highly-rated restaurants with <span className="font-semibold text-sage-700">most likely safe Low FODMAP options</span>. 
+          <br/>
+          <span className="text-sm bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded mt-2 inline-block font-medium">
+             ⚠️ Always verify specific ingredients with your server.
+          </span>
         </p>
       </div>
 
@@ -154,12 +157,19 @@ const RestaurantFinder: React.FC = () => {
                 {place.description && <p className="mt-3 text-sm text-gray-600 italic border-l-2 border-sage-200 pl-3">{place.description}</p>}
                 
                 <div className="mt-6 bg-sage-50 rounded-lg p-4">
-                  <h4 className="text-xs font-bold text-sage-800 uppercase tracking-wide mb-3">Chef's Safe Picks</h4>
-                  <ul className="space-y-2">
+                  <h4 className="text-xs font-bold text-sage-800 uppercase tracking-wide mb-3">Likely Safe Options (Verify w/ Server)</h4>
+                  <ul className="space-y-3">
                     {place.recommendedDishes.map((dish, i) => (
-                      <li key={i} className="flex items-start text-sm">
-                        <span className="flex-shrink-0 text-sage-500 mr-2">•</span>
-                        <span className="text-gray-700">{dish}</span>
+                      <li key={i} className="flex flex-col text-sm border-b border-sage-200 last:border-0 pb-2 last:pb-0">
+                        <div className="flex items-start">
+                            <span className="flex-shrink-0 text-sage-500 mr-2">•</span>
+                            <span className="text-gray-900 font-medium">{dish.name}</span>
+                        </div>
+                        {dish.caution && (
+                           <div className="ml-4 mt-1 text-xs text-amber-700 bg-amber-50 px-2 py-1 rounded inline-block self-start border border-amber-100">
+                               ⚠️ Check: {dish.caution}
+                           </div>
+                        )}
                       </li>
                     ))}
                   </ul>

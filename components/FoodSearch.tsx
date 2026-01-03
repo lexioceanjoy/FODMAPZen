@@ -24,15 +24,6 @@ const FoodSearch: React.FC = () => {
       </div>
 
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
-        <div className="relative flex-grow">
-          <input
-            type="text"
-            className="block w-full rounded-md border-0 py-3 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sage-600 sm:text-sm sm:leading-6"
-            placeholder="Search for an ingredient (e.g. Garlic, Apple)..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
         <div className="sm:w-1/4">
           <select
             value={selectedCategory}
@@ -44,6 +35,15 @@ const FoodSearch: React.FC = () => {
               <option key={c} value={c}>{c}</option>
             ))}
           </select>
+        </div>
+        <div className="relative flex-grow">
+          <input
+            type="text"
+            className="block w-full rounded-md border-0 py-3 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sage-600 sm:text-sm sm:leading-6"
+            placeholder="Search for an ingredient (e.g. Garlic, Apple)..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
       </div>
 
