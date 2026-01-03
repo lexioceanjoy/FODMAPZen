@@ -39,6 +39,14 @@ const FoodScanner: React.FC = () => {
     }
   };
 
+  const resetScanner = () => {
+    setSelectedImage(null);
+    setResult(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
   const triggerFileInput = () => {
     fileInputRef.current?.click();
   };
@@ -80,13 +88,23 @@ const FoodScanner: React.FC = () => {
           />
         </div>
 
-        <button
-          onClick={handleScan}
-          disabled={!selectedImage || isAnalyzing}
-          className="w-full max-w-md rounded-full bg-sage-600 px-6 py-3 text-white font-semibold shadow-lg hover:bg-sage-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-        >
-          {isAnalyzing ? 'Scanning...' : 'Analyze Food'}
-        </button>
+        {/* Action Buttons */}
+        {!result ? (
+            <button
+            onClick={handleScan}
+            disabled={!selectedImage || isAnalyzing}
+            className="w-full max-w-md rounded-full bg-sage-600 px-6 py-3 text-white font-semibold shadow-lg hover:bg-sage-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            >
+            {isAnalyzing ? 'Scanning...' : 'Analyze Food'}
+            </button>
+        ) : (
+             <button
+            onClick={resetScanner}
+            className="w-full max-w-md rounded-full bg-white border-2 border-sage-600 px-6 py-3 text-sage-700 font-bold shadow-md hover:bg-sage-50 transition-all"
+            >
+            Scan New Photo
+            </button>
+        )}
 
         {/* Results Area */}
         {result && (

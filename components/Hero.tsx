@@ -23,9 +23,6 @@ const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
             >
               Check Food Now
             </button>
-            <a href="#education" className="text-sm font-semibold leading-6 text-sage-900 hover:text-sage-700">
-              Learn more <span aria-hidden="true">→</span>
-            </a>
           </div>
         </div>
       </div>

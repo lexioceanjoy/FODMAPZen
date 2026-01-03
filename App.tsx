@@ -65,7 +65,7 @@ const App: React.FC = () => {
       <footer className="bg-white border-t border-gray-100 py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="text-center text-xs leading-5 text-gray-500">
-            &copy; 2024 FODMAP Zen. Not medical advice. Consult a healthcare professional.
+            &copy; 2026 FODMAP Zen by Oceanjoy. Not medical advice. Consult a healthcare professional.
           </p>
         </div>
       </footer>
